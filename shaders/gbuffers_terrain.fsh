@@ -63,7 +63,7 @@ float sunset = smoothstep(0.2, -0.2, sunHeight);
 col = mix(col, col * sunsetSoft, sunset * 0.3);
 col = mix(col, col * sunsetWarm, sunset * 0.2);
 
-  col = pow(col, vec3(1.1));
+  col = pow(col, vec3(0.95));
 
 
     // 🔚 output
