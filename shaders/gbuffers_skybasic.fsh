@@ -7,7 +7,7 @@ uniform mat4 gbufferModelView;
 uniform mat4 gbufferProjectionInverse;
 uniform vec3 fogColor;
 uniform vec3 skyColor;
-uniform vec3 sunPosition; // ✅ REQUIRED
+uniform vec3 sunPosition; 
 
 in vec4 glcolor;
 
@@ -44,6 +44,19 @@ void main() {
 
         vec3 dir = normalize(pos);
         vec3 col = calcSkyColor(dir);
+
+        // =========================
+// 🌌 SKY DEPTH LAYER
+// =========================
+
+// deeper blue at top
+float zenith = pow(max(dir.y, 0.0), 2.0);
+
+// darker upper sky
+vec3 deepBlue = vec3(0.05, 0.1, 0.25);
+
+// blend
+col = mix(col, deepBlue, zenith * 0.5);
 
         // 🌙 NIGHT FACTOR
         float night = clamp(-sunPosition.y, 0.0, 1.0);
