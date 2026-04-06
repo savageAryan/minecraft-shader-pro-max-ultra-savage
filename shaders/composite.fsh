@@ -1,7 +1,8 @@
 #version 330 core
 
 uniform sampler2D colortex0;
-
+precision highp float;
+uniform vec3 sunPosition;
 in vec2 texcoord;
 out vec4 color;
 
@@ -28,15 +29,36 @@ void main() {
     blur *= 0.25;
 
     float bloomMask = smoothstep(0.7, 1.0, brightness);
-    col += blur * bloomMask * 1.2;
+    col += blur * bloomMask * 0.6;
+
+    // =========================
+// ✨ HIGHLIGHT BOOST
+// =========================
+
+float highlight = smoothstep(0.6, 1.0, brightness);
+col += highlight * 0.15;
 
     // =========================
     // 🌫️ FOG
     // =========================
-    float fog = smoothstep(0.4, 1.0, uv.y);
-    vec3 fogColor = vec3(0.7, 0.8, 1.0);
-    col = mix(col, fogColor, fog * 0.5);
+ 
+// =========================
+// 🌫️ FIXED FOG (no greying)
+// =========================
 
+// fake distance
+float dist = 1.0 - uv.y;
+dist += (1.0 - brightness) * 0.2;
+
+// smoother curve
+float fog = exp(-dist * 1.5);
+fog = clamp(fog, 0.0, 1.0);
+
+// softer fog color (LESS grey)
+vec3 fogColor = vec3(0.65, 0.75, 0.9);
+
+// IMPORTANT: correct blending direction
+col = mix(col, fogColor, (1.0 - fog) * 0.4);
    // =========================
 // 🌑 CRISP → SOFT SHADOWS
 // =========================
@@ -71,8 +93,57 @@ col *= 0.6 + NdotL * 0.6;
     // =========================
     // 🎨 FINAL BALANCE
     // =========================
-    col *= 0.9;
-    col = pow(col, vec3(1.0));
+
+// slight contrast boost
+col = pow(col, vec3(0.92));
+
+// prevent over-darkening
+col *= 1.08;
+
+// =========================
+// ☀️ IMPROVED GOD RAYS
+// =========================
+
+// project sun direction to screen space (approx)
+vec2 lightPos = vec2(
+    0.5 + sunPosition.x * 0.3,
+    0.5 - sunPosition.y * 0.3
+);
+
+// direction from pixel to sun
+vec2 delta = uv - lightPos;
+
+float rays = 0.0;
+
+// fewer samples = faster 
+for (int i = 0; i < 6; i++) {
+    float scale = float(i) * 0.03;
+    vec2 sampleUV = uv - delta * scale;
+    rays += texture(colortex0, sampleUV).r;
+}
+
+rays /= 6.0;
+
+// only near sun
+float sunMask = smoothstep(0.2, 0.0, length(uv - lightPos));
+
+// only bright areas
+float rayMask = smoothstep(0.6, 1.0, brightness);
+
+// apply
+col += vec3(1.0, 0.9, 0.7) * rays * rayMask * sunMask * 0.7;
+
+// =========================
+// 🎬 CINEMATIC TONE
+// =========================
+
+// slight warm tint in highlights
+float warm = smoothstep(0.6, 1.0, brightness);
+col += vec3(0.05, 0.03, 0.0) * warm;
+
+// slight cool tint in shadows
+float dark = smoothstep(0.5, 0.0, brightness);
+col += vec3(0.0, 0.02, 0.05) * dark;
 
     color = vec4(col, 1.0);
 }
