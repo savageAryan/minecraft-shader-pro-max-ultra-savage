@@ -109,8 +109,8 @@ vec3 orange = vec3(1.0, 0.4, 0.1);
 vec3 pink   = vec3(1.0, 0.6, 0.4);
 
 // layered blend
-col = mix(col, col * pink, sunset * 0.4);
-col = mix(col, col * orange, sunset * 0.3);
+col = mix(col, col * pink, sunset * 0.6);
+col = mix(col, col * orange, sunset * 0.5);
 
         // prevent overexposure
         col = clamp(col, 0.0, 1.0);
