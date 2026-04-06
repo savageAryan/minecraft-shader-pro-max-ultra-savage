@@ -4,7 +4,7 @@ uniform float viewHeight;
 uniform float viewWidth;
 uniform float frameTimeCounter;
 uniform vec3 sunPosition;
-uniform vec3 skyColor; // 🔥 IMPORTANT (matches sky)
+uniform vec3 skyColor; 
 
 in vec2 texcoord;
 
@@ -83,7 +83,7 @@ void main() {
     waterColor = mix(waterColor, vec3(0.2, 0.5, 0.7), fog * 0.2);
 
     // 💡 EXTRA LIGHT PENETRATION
-    waterColor += vec3(0.1, 0.2, 0.25);
+    waterColor += vec3(0.05, 0.1, 0.15);
 
     // 💧 Transparency
     float alpha = mix(0.5, 0.8, depth);
