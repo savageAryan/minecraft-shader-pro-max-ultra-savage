@@ -56,7 +56,7 @@ void main() {
     vec3 skyMix = mix(nightSky, skyColor, dayFactor);
 
     float fresnel = pow(1.0 - uv.y, 2.0);
-    waterColor += skyMix * fresnel * 0.9;
+    waterColor += skyMix * fresnel * 1.4;
 
     // ✨ sparkles
     float spark = sparkle(uv, t);
@@ -87,6 +87,13 @@ void main() {
 
     // 💧 Transparency
     float alpha = mix(0.5, 0.8, depth);
+
+    // =========================
+// 💡 SHORELINE HIGHLIGHT
+// =========================
+
+float edge = smoothstep(0.0, 0.2, uv.y);
+waterColor += vec3(0.2, 0.3, 0.35) * (1.0 - edge) * 0.5;
 
     color = vec4(waterColor, alpha);
 }
