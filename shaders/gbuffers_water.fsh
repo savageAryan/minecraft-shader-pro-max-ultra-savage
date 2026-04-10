@@ -9,7 +9,7 @@ uniform vec3 skyColor;
 in vec2 texcoord;
 
 /* RENDERTARGETS: 0 */
-layout(location = 0) out vec4 color;
+out vec4 color;
 
 /* 🌊 Smooth waves */
 float wave(vec2 uv, float t) {
