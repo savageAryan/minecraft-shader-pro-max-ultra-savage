@@ -31,7 +31,7 @@ vec3 calcSkyColor(vec3 pos) {
 }
 
 /* RENDERTARGETS: 0 */
-layout(location = 0) out vec4 color;
+out vec4 color;
 
 void main() {
 
