@@ -1,4 +1,20 @@
-1.REAliteV1 is for lumen 
-2.REAliteV2 is the updated version for flavour town it said i can use the project if i have defined updates 
-3.( if you do not have minecraft)to run just download zip source code for REAliteV2 and run in your code editor (preffered VSC editor) by .\gradlew runShaderClient , make sure you have java 21 altlest
-4. if you have minecraft then just dounload REAliteV2 shaderpack.zip place it under shaderpack folder, make sure you have iris for 1.21.5 and playing on it
+REAlite shader is a light weight shader focused on cinematic,but hardware friendly graphics for low end PCs
+
+###INSTALLATION###
+1. download the shader zip file.
+
+2. move the .zip file into minecraft shader pack
+
+3. Open minecraft with Iris(fabric modded)
+
+4. Make sure Shaders are enabled in video settings and REAlite Shader is selected
+
+###REQUIREMENTS###
+
+--Minecraft Java Edition
+
+--Iris Shader(fabric modded)
+
+###DEVELOPMENT NOTES###
+
+i loved making the project ,please enjoy
