@@ -1,6 +1,8 @@
+# REAlite SHADER
+
 REAlite shader is a light weight shader focused on cinematic,but hardware friendly graphics for low end PCs
 
-###INSTALLATION###
+### INSTALLATION 
 1.In releases REAlite shader , download the fixed REAliteV2.zip file
 
 2.DO NOT DOWNLOAD THE SOURCE CODE ITS FOR SHADER DEVS 
@@ -11,12 +13,12 @@ REAlite shader is a light weight shader focused on cinematic,but hardware friend
 
 5. Make sure Shaders are enabled in video settings and REAlite Shader is selected
 
-###REQUIREMENTS###
+### REQUIREMENTS 
 
 --Minecraft Java Edition
 
 --Iris Shader(fabric modded)
 
-###DEVELOPMENT NOTES###
+### DEVELOPMENT NOTES
 
 i loved making the project ,please enjoy
